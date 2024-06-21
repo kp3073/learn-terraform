@@ -26,3 +26,8 @@ output "fruits" {
 output "price_fruits" {
   value = var.price_fruits
 }
+
+
+output "first_fruit" {
+  value = var.fruits[1]
+}
