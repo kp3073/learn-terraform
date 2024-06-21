@@ -29,5 +29,5 @@ output "price_fruits" {
 
 
 output "first_fruit" {
-  value = var.fruits[1]
+  value = var.price_fruits["apple"]
 }
