@@ -1,5 +1,5 @@
 resource "null_resource" "name" {
-  provisioner "local-exec" {
+    provisioner "local-exec" {
 
     command =  "echo ${var.input}"
   }
