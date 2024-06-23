@@ -1,4 +1,4 @@
-resource "null_resource" "sub" {
+resource "null_resource" "subw" {
     provisioner "local-exec" {
       command = "echo ${var.input}"
     }

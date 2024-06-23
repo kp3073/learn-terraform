@@ -1,4 +1,4 @@
-module "sub" {
+module "subw" {
   source = "./sub"
   input = var.input
 }
