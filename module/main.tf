@@ -1,4 +1,8 @@
 module "name" {
   source = "./local-module"
-  input = "hello Universe"
+  input = var.input
+}
+
+variable "input" {
+  default = "hello Universe"
 }
