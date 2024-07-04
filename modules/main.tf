@@ -1,7 +1,7 @@
 module "vpc" {
   source = "./modules/vpc"
-  vpc_cidr_block = var.vpc_cidr_block
-  peer_owner_id = var.peer_owner_id
+  vpc_cidr = var.vpc_cidr
+  peer_owner_id = var.account_no
   default_vpc_id = var.default_vpc_id
 }
 
