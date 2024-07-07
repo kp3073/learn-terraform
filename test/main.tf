@@ -6,13 +6,21 @@ resource "aws_vpc" "main" {
   }
 }
 
-
 resource "aws_vpc_peering_connection" "foo" {
   peer_owner_id = var.peer_owner_id
   peer_vpc_id   = var.vpc_id
   vpc_id        = aws_vpc.main.id
   auto_accept = true
 }
+resource "aws_subnet" "main" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.privet_subent.[count.index]
+
+  tags = {
+    Name = "Main"
+  }
+}
+
 
 
 

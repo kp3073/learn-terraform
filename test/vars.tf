@@ -9,3 +9,7 @@ variable "peer_owner_id" {
 variable "vpc_id" {
   default = "vpc-01c37a20026cef1d0"
 }
+
+variable "privet_subent" {
+  default = ["10.0.1.0/24","10.0.2.0/24"]
+}
