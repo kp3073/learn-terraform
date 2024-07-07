@@ -14,7 +14,7 @@ resource "aws_vpc_peering_connection" "foo" {
 }
 resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.privet_subent.[count.index]
+  cidr_block = var.privet_subent[count.index]
 
   tags = {
     Name = "privet_subent"
