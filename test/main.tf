@@ -17,10 +17,17 @@ resource "aws_subnet" "main" {
   cidr_block = var.privet_subent.[count.index]
 
   tags = {
-    Name = "Main"
+    Name = "privet_subent"
   }
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "igw"
+  }
+}
 
 
 
