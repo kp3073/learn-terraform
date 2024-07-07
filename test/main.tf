@@ -12,15 +12,27 @@ resource "aws_vpc_peering_connection" "foo" {
   vpc_id        = aws_vpc.main.id
   auto_accept = true
 }
-resource "aws_subnet" "main" {
-  count = length(var.privet_subent)
+resource "aws_subnet" "private" {
+  count = length(var.privet_subnet)
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.privet_subent[count.index]
+  cidr_block = var.publict_subnet[count.index]
 
   tags = {
     Name = "privet_subent-${count.index + 1}"
   }
 }
+
+
+resource "aws_subnet" "public" {
+  count = length(var.public_subnet)
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.public_subnet[count.index]
+
+  tags = {
+    Name = "privet_subent-${count.index + 1}"
+  }
+}
+
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -44,6 +56,12 @@ resource "aws_route_table" "privateRT" {
   }
 }
 
+
+resource "aws_route_table_association" "a" {
+  count = length(public_subnet)
+  subnet_id      = var.public_subnet[count.index].id
+  route_table_id = aws_route_table.privateRT.id
+}
 
 
 
