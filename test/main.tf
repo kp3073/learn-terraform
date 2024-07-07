@@ -18,7 +18,7 @@ resource "aws_subnet" "main" {
   cidr_block = var.privet_subent[count.index]
 
   tags = {
-    Name = "privet_subent"
+    Name = "privet_subent-${count.index}+1"
   }
 }
 
