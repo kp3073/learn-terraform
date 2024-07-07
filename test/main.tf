@@ -15,7 +15,7 @@ resource "aws_vpc_peering_connection" "foo" {
 resource "aws_subnet" "private" {
   count = length(var.privet_subnet)
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.publict_subnet[count.index]
+  cidr_block = var.public_subnet[count.index]
 
   tags = {
     Name = "privet_subent-${count.index + 1}"
