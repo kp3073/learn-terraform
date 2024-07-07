@@ -40,7 +40,7 @@ resource "aws_route_table" "privateRT" {
   }
 
   tags = {
-    Name = "example"
+    Name = "privateRT"
   }
 }
 
