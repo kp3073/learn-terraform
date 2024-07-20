@@ -1,6 +1,12 @@
+random = {
+  source = "hashicorp/random"
+  version = "3.6.2"
+}
 
-backend "s3" {
-  bucket         	   = "my-tf-test-bucket9999asd9u942"
-  key              	   = "terraform.tfstate"
-  region         	   = "us-east-1"
+resource "random_id" "bucket_name" {
+  byte_length = 8
+}
+
+resource "aws_s3_bucket" "buc" {
+  bucket = "bucket-${random_id.bucket_name.hex}"
 }
