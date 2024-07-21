@@ -5,6 +5,11 @@ terraform {
       version = "3.6.2"
     }
   }
+  backend "s3" {
+    bucket = aws_s3_bucket.bucket.bucket
+    key = "backend.tfstate"
+    region = "us-east-1"
+  }
 }
 
 resource "random_id" "buket_id" {
