@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "mytestdevops-8c5cd2f3193c3d2f"
-    key = "backend.tfstate"
+    key = "terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -15,12 +15,18 @@ terraform {
 resource "random_id" "buket_id" {
   byte_length = 8
 }
-resource "aws_s3_bucket" "bucket" {
+resource "aws_s3_bucket" "website_bucket" {
   bucket = "mytestdevops-${random_id.buket_id.hex}"
 }
 
-resource "aws_s3_object" "file" {
-  bucket = aws_s3_bucket.bucket.bucket
-  source = "./terraform.tfstate"
-  key    = "terraform.tfstate"
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  source = "./index.html"
+  key    = "index.html"
+}
+
+resource "aws_s3_object" "style_css" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  source = "./style.css"
+  key    = "style.css"
 }
