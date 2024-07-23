@@ -27,6 +27,6 @@ resource "aws_s3_object" "index_html" {
 
 resource "aws_s3_object" "style_css" {
   bucket = aws_s3_bucket.website_bucket.bucket
-  source = "./style.css"
-  key    = "style.css"
+  source = "./styles.css"
+  key    = "styles.css"
 }
