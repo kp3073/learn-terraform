@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "website" {
-  bucket = "aws_s3_bucket.kp30731991"
+  bucket = "aws-s3-bucketkp307319911"
 }
 #
 resource "aws_s3_object" "html" {
