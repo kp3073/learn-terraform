@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-test-bucket-DevOps-kp3073"
+  bucket = "my-tf-test-bucket-DevOps-kp3073111"
 }
 #
 resource "aws_s3_object" "html" {
