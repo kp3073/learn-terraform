@@ -35,9 +35,7 @@ resource "aws_s3_bucket_website_configuration" "example" {
   index_document {
     suffix = "index.html"
   }
-
 }
-
 
 resource "aws_s3_object" "html" {
   bucket = aws_s3_bucket.website.bucket
@@ -53,6 +51,6 @@ resource "aws_s3_object" "styles" {
   content_type = "text/css"
 }
 
-output "wesiteurl" {
+output "websiteurl" {
   value = aws_s3_bucket_website_configuration.example.website_endpoint
 }
