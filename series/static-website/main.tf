@@ -54,3 +54,5 @@ resource "aws_s3_object" "styles" {
 output "websiteurl" {
   value = aws_s3_bucket_website_configuration.example.website_endpoint
 }
+
+http://http://172.31.95.12:8080/generic-webhook-trigger/invoke?token=backend
