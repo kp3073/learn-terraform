@@ -18,11 +18,11 @@ resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
       Version = "2012-10-17",
       Statement = [
         {
-          Sid = "PublicReadGetObject",
-          Effect = "Allow",
+          Sid       = "PublicReadGetObject",
+          Effect    = "Allow",
           Principal = "*",
-          Action = "s3:GetObject",
-          Resource = "arn:aws:s3:::${aws_s3_bucket.website.id}/*"
+          Action    = "s3:GetObject",
+          Resource  = "arn:aws:s3:::${aws_s3_bucket.website.id}/*"
         }
       ]
     }
@@ -38,16 +38,16 @@ resource "aws_s3_bucket_website_configuration" "example" {
 }
 
 resource "aws_s3_object" "html" {
-  bucket = aws_s3_bucket.website.bucket
-  key    = "index.html"
-  source = "./index.html"
+  bucket       = aws_s3_bucket.website.bucket
+  key          = "index.html"
+  source       = "./index.html"
   content_type = "text/html"
 }
 
 resource "aws_s3_object" "styles" {
-  bucket = aws_s3_bucket.website.bucket
-  key    = "styles.css"
-  source = "./styles.css"
+  bucket       = aws_s3_bucket.website.bucket
+  key          = "styles.css"
+  source       = "./styles.css"
   content_type = "text/css"
 }
 
@@ -55,4 +55,3 @@ output "websiteurl" {
   value = aws_s3_bucket_website_configuration.example.website_endpoint
 }
 
-http://http://172.31.95.12:8080/generic-webhook-trigger/invoke?token=backend
