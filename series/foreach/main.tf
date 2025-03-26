@@ -3,7 +3,7 @@ resource "azurerm_public_ip" "main" {
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   allocation_method   = "dynamic"
-  sku                 = "basic"
+  sku                 = "Basic"
 
   tags = {
 	environment = "Production"
