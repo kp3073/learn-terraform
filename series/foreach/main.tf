@@ -1,3 +1,18 @@
+resource "azurerm_virtual_network" "main" {
+  name                = data.azurerm_virtual_network.vnet.name
+  address_space = ["10.0.0.0/16"]
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+}
+
+resource "azurerm_subnet" "internal" {
+  name                 = "default"
+  resource_group_name  = data.azurerm_resource_group.rg.location
+  virtual_network_name = data.azurerm_resource_group.rg.name
+  address_prefixes = ["10.0.0.0/24"]
+}
+
+
 resource "azurerm_network_interface" "main" {
   for_each            = var.vms
   name                = "${each.value["vm_name"]}-${var.env}"
@@ -17,7 +32,8 @@ resource "azurerm_virtual_machine" "main" {
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.main[each.key].id]
-  vm_size = each.value["vm_size"]
+  vm_size             = each.value["vm_size"]
+  vnet_subnet_id = data.azurerm_subnet.subnet.id
 
 
 
