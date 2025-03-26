@@ -109,5 +109,5 @@ resource "azurerm_dns_a_record" "public" {
   resource_group_name = data.azurerm_resource_group.rg.name
   ttl                 = 2
   zone_name           = "cloudaws.shop"
-  records = [azurerm_public_ip.main.ip_address]
+  records = [azurerm_public_ip.main[each.key].ip_address]
 }
