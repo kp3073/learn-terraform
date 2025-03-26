@@ -36,7 +36,7 @@ resource "azurerm_virtual_machine" "main" {
 	managed_disk_type = "Standard_LRS"
   }
   os_profile {
-	computer_name  = var.vms
+	computer_name  = each.value["vm_name"]
 	admin_username = "cenetos"
 	admin_password = "Password1234$$$$"
   }
