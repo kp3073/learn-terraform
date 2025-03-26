@@ -1,6 +1,6 @@
 resource "azurerm_network_interface" "main" {
   for_each            = var.vms
-  name                = "${var.env}-nic"
+  name                = "${each.value.vm_name}-${var.env}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
@@ -17,7 +17,7 @@ resource "azurerm_virtual_machine" "main" {
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.main[each.key].id]
-  vm_size = each.value["vm_size"]
+  vm_size = each.value.vm_size
 
 
 
@@ -30,13 +30,13 @@ resource "azurerm_virtual_machine" "main" {
   }
 
   storage_os_disk {
-	name              = "${var.vms}-${var.env}"
+	name              = "${each.value.vm_name}-${var.env}"
 	caching           = "ReadWrite"
 	create_option     = "FromImage"
 	managed_disk_type = "Standard_LRS"
   }
   os_profile {
-	computer_name  = each.value["vm_name"]
+	computer_name  = each.value.vm_name
 	admin_username = "cenetos"
 	admin_password = "Password1234$$$$"
   }
