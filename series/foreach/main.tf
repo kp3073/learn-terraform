@@ -112,5 +112,6 @@ resource "azurerm_dns_a_record" "main" {
   name                = azurerm_virtual_machine.main[each.key].name
   zone_name           = "cloudaws.online"
   resource_group_name = data.azurerm_resource_group.rg.name
-  ttl                 = 300
+  ttl                 = 30
+  records = [azurerm_network_interface.main[each.key].private_ip_address]
 }
