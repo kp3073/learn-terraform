@@ -1,6 +1,6 @@
 resource "azurerm_public_ip" "main" {
   for_each            = var.vms
-  name                = "${each.value["vm_name"]}-pip"
+  name                = "${each.key}-pip"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   allocation_method   = "Dynamic"
