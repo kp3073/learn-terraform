@@ -117,7 +117,8 @@ resource "azurerm_virtual_machine" "main" {
 # }
 
 resource "azurerm_dns_a_record" "main" {
-  name                = "test1"
+  for_each            = var.vms
+  name                = azurerm_virtual_machine.main[each.key].name
   resource_group_name = data.azurerm_resource_group.rg.name
   ttl                 = 2
   zone_name           = "cloudaws.online"
