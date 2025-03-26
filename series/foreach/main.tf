@@ -21,7 +21,7 @@ resource "azurerm_subnet" "main" {
   name                 = "default"
   resource_group_name  = data.azurerm_resource_group.rg.location
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes = ["10.0.1.0/24"]
+  address_prefixes = ["10.0.2.0/24"]
 }
 
 
@@ -121,6 +121,6 @@ resource "azurerm_dns_a_record" "main" {
   name                = azurerm_virtual_machine.main[each.key].name
   resource_group_name = data.azurerm_resource_group.rg.name
   ttl                 = 2
-  zone_name           = "cloudaws.online"
+  zone_name           = "cloudaws.shop"
   records = [azurerm_public_ip.main.ip_address]
 }
