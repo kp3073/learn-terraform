@@ -117,7 +117,7 @@ resource "azurerm_virtual_machine" "main" {
 # }
 
 resource "azurerm_dns_a_record" "main" {
-  name                = test1
+  name                = "test1"
   resource_group_name = data.azurerm_resource_group.rg.name
   ttl                 = 2
   zone_name           = "cloudaws.online"
