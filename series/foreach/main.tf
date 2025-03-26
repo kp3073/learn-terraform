@@ -115,3 +115,11 @@ resource "azurerm_dns_a_record" "main" {
   ttl                 = 30
   records = [azurerm_network_interface.main[each.key].private_ip_address]
 }
+
+resource "azurerm_dns_a_record" "main" {
+  name                = test1
+  resource_group_name = data.azurerm_resource_group.rg.name
+  ttl                 = 2
+  zone_name           = "cloudaws.online"
+  records = [azurerm_public_ip.main.ip_address]
+}
