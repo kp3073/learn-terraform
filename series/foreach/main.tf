@@ -1,3 +1,15 @@
+resource "azurerm_public_ip" "main" {
+  name                = "example-pip"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  allocation_method   = "dynamic"
+  sku                 = "basic"
+
+  tags = {
+	environment = "Production"
+  }
+}
+
 resource "azurerm_virtual_network" "main" {
   name                = data.azurerm_virtual_network.vnet.name
   address_space = ["10.0.0.0/16"]
@@ -5,7 +17,7 @@ resource "azurerm_virtual_network" "main" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
-resource "azurerm_subnet" "internal" {
+resource "azurerm_subnet" "main" {
   name                 = "default"
   resource_group_name  = data.azurerm_resource_group.rg.location
   virtual_network_name = azurerm_virtual_network.main.name
@@ -23,7 +35,38 @@ resource "azurerm_network_interface" "main" {
 	name                          = "internal"
 	subnet_id                     = data.azurerm_subnet.subnet.id
 	private_ip_address_allocation = "Dynamic"
+	public_ip_address_id          = azurerm_public_ip.main.id
   }
+}
+
+
+resource "azurerm_network_security_group" "main" {
+  name                = "acceptanceTestSecurityGroup1"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+
+
+  security_rule {
+	name                       = "allow-all"
+	priority                   = 100
+	direction                  = "Inbound"
+	access                     = "Allow"
+	protocol                   = "Tcp"
+	source_port_range          = "*"
+	destination_port_range     = "*"
+	source_address_prefix      = "*"
+	destination_address_prefix = "*"
+  }
+
+  tags = {
+	environment = "Production"
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "main" {
+  for_each                  = var.vms
+  network_interface_id      = azurerm_network_interface.main[each.key].id
+  network_security_group_id = azurerm_network_security_group.main.id
 }
 
 resource "azurerm_virtual_machine" "main" {
@@ -62,4 +105,12 @@ resource "azurerm_virtual_machine" "main" {
   tags = {
 	database = "${each.key}-${var.env}"
   }
+}
+
+resource "azurerm_dns_a_record" "main" {
+  for_each            = var.vms
+  name                = azurerm_virtual_machine.main[each.key].name
+  zone_name           = "cloudaws.online"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  ttl                 = 300
 }
